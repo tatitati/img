@@ -5,10 +5,16 @@ ThisBuild / version          := "0.1.0-SNAPSHOT"
 ThisBuild / organization     := "com.example"
 ThisBuild / organizationName := "example"
 
+
+val deps =  Seq(
+  scalaTest % Test,
+  "eu.timepit" %% "refined"                 % "0.9.10"
+)
+
 lazy val root = (project in file("."))
   .settings(
     name := "img",
-    libraryDependencies += scalaTest % Test
+    libraryDependencies ++= deps
   )
 
 // Uncomment the following for publishing to Sonatype.
