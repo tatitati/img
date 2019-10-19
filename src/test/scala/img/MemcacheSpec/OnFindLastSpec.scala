@@ -3,8 +3,6 @@ package img.MemcacheSpec
 import img.{EventTeam, Memcache, TeamA, TeamB}
 import org.scalatest.FunSuite
 
-import scala.util.Try
-
 class OnFindLastSpec extends FunSuite {
   test("Can find the last one event") {
     val givenCache = new Memcache()
