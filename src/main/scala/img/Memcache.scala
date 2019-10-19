@@ -17,4 +17,8 @@ class Memcache {
   def findAllEvents(): List[EventTeam] = {
     this.cache
   }
+
+  def findLastEvents(n: Int): List[EventTeam] = {
+    this.cache.take(n)
+  }
 }
