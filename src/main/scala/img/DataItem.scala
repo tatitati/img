@@ -1,18 +1,10 @@
 package img
 
-import eu.timepit.refined.W
-import eu.timepit.refined.boolean.{And, Not}
-import eu.timepit.refined.numeric.{Greater, Less, Positive}
-import eu.timepit.refined.auto._
-import eu.timepit.refined.api.Refined
-
 object DataItem{
   def apply(): DataItem = {
     DataItem(0, 0, 0, 0, 0)
   }
 }
-
-
 case class DataItem(
    matchtime: Int,
    team1PointsTotal: Int,
