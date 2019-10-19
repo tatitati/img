@@ -7,12 +7,13 @@ class ToBaseSpec extends FunSuite {
     assert("100" === 4.toBinaryString)
   }
 
-  test("DEC <- BINARY") {
-    assert("100" === 4.toBinaryString)
-  }
-
   test("DEC -> HEX") {
     assert("2A" === 42.toHexString.toUpperCase())
+  }
+
+
+  test("DEC <- BINARY") {
+    assert(5 === Integer.parseInt("101", 2))
   }
 
   test("DEC <- HEX") {
