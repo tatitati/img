@@ -34,6 +34,13 @@ case class Event(
     }
   }
 
+  def printDecimal(): Unit = {
+    val binary =
+      s"""
+         |0 ${matchtime.toBinaryString.toInt} ${team1PointsTotal.toBinaryString.toInt} ${team2PointsTotal.toBinaryString.toInt} ${whoScored.toChar} ${pointsScored.toBinaryString.toInt}""".stripMargin
+    println(binary)
+  }
+
   def printBinary(): Unit = {
       val binaryMatchTime = String.format("%0" + 12 + "d", matchtime.toBinaryString.toInt.asInstanceOf[Object])
       val binaryTeam1PointsTotal = String.format("%0" + 8 + "d", team1PointsTotal.toBinaryString.toInt.asInstanceOf[Object])
@@ -42,7 +49,7 @@ case class Event(
 
     val binary =
       s"""
-         |0 ${binaryMatchTime} ${binaryTeam1PointsTotal} ${binaryTeam2PointsTotal} ${whoScored} ${binaryPointsScored}""".stripMargin
+         |0 ${binaryMatchTime} ${binaryTeam1PointsTotal} ${binaryTeam2PointsTotal} ${whoScored.toBinary} ${binaryPointsScored}""".stripMargin
     println(binary)
   }
 }
