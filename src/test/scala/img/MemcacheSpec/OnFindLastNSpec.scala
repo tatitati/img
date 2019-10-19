@@ -5,7 +5,7 @@ import org.scalatest.FunSuite
 
 class OnFindLastNSpec extends FunSuite {
 
-  test("I can add events to the cache") {
+  test("Can find last N events") {
     val givenCache = new Memcache()
     val givenEvent1 = EventTeam().onSecond(3).withTeamScores(2, 0).withNewScore(TeamA, 2)
     val givenEvent2 = EventTeam().onSecond(5).withTeamScores(4, 0).withNewScore(TeamA, 2)
