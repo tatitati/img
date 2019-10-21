@@ -23,4 +23,12 @@ class ToBaseSpec extends FunSuite {
     assert(15732767 === Integer.parseInt("f0101f", 16), "from the doc")
     assert(0xf0101f == 15732767)
   }
+
+  test("HEX -> BIN"){
+    val binary1 = Integer.parseInt("781002", 16).toBinaryString
+    val binary2 = Integer.parseInt("f0101f", 16).toBinaryString
+
+    assert("11110000001000000000010" == binary1)
+    assert("111100000001000000011111" == binary2)
+  }
 }
