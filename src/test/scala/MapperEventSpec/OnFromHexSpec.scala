@@ -1,6 +1,6 @@
 package MapperEventSpec
 
-import img.{Event, MapperEvent, Team1, Team2}
+import img.{ErrorParsing, Event, MapperEvent, Team1, Team2}
 import org.scalatest.FunSuite
 
 class OnFromHexSpec extends FunSuite {

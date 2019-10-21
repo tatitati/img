@@ -1,6 +1,7 @@
 package img
 
 import scala.annotation.tailrec
+import scala.util.{Success, Try}
 
 object MapperEvent {
 
@@ -33,6 +34,15 @@ object MapperEvent {
           },
           pointsScored
         ))
+      case _ => Left(ErrorParsing)
+    }
+  }
+
+  def hexToBin(hex: String): Either[Error, String] = {
+    val result = Try {Integer.parseInt(hex, 16).toBinaryString}
+
+    result match {
+      case Success(value) => Right(value)
       case _ => Left(ErrorParsing)
     }
   }
