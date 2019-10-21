@@ -46,14 +46,6 @@ object Main {
 
   def main(args: Array[String]) {
     val repo = new RepoEvents
-//    for(n <- 1 to 10) {
-//      println("\n=============\n")
-//      println("introduce hex")
-//      val number = scala.io.StdIn.readLine()
-//      println(number.getClass)
-//      println(number)
-//    }
     ask(repo)
-
   }
 }
