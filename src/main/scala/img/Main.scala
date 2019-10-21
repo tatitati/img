@@ -4,6 +4,7 @@ import scala.annotation.tailrec
 
 object Main {
 
+  @tailrec
   def ask(repo: RepoEvents): Unit = {
 
       println("\n=====================\n")
@@ -20,7 +21,7 @@ object Main {
         case 1 =>
           println("Introduce Hexadecimal (example: f0101f): ")
           val hex: String = scala.io.StdIn.readLine()
-          val event = MapperEvent.fromHex(hex)
+          val event = MapperEvent.fromHex(hex.trim)
           event.map(repo.addEvent(_))
           ask(repo)
 
@@ -45,6 +46,13 @@ object Main {
 
   def main(args: Array[String]) {
     val repo = new RepoEvents
+//    for(n <- 1 to 10) {
+//      println("\n=============\n")
+//      println("introduce hex")
+//      val number = scala.io.StdIn.readLine()
+//      println(number.getClass)
+//      println(number)
+//    }
     ask(repo)
 
   }
