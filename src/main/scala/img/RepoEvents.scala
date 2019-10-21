@@ -13,8 +13,11 @@ class RepoEvents {
 
   private var cache: ListEvent = List()
 
-  def addEvent(eventTeam: Event): RepoEvents = {
-    this.cache = eventTeam :: this.cache
+  def addEvent(newEvent: Event): RepoEvents = {
+    if(cache.contains(newEvent) == false){
+      this.cache = newEvent :: this.cache
+    }
+
     this
   }
 
