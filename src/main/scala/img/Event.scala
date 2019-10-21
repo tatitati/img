@@ -7,8 +7,8 @@ object Event{
   def splitBinary(data: String, idxSplits: List[Int], accumulator: List[String] = List()): List[String] = {
     idxSplits match {
       case Nil => accumulator :+ data
-      case values =>
-        val nextSplit = data.length - idxSplits(0)
+      case _ =>
+        val nextSplit = data.length - idxSplits.head
         val(binaryhead: String, binarytail: String) = data.splitAt(nextSplit)
 
         splitBinary(binaryhead, idxSplits.tail, accumulator :+ binarytail)
