@@ -15,15 +15,4 @@ class OnAddEventSpec extends FunSuite {
 
     assert(Some(List(givenEvent2, givenEvent1)) == repo.findAllEvents())
   }
-
-  test("I cannot insert duplicates") {
-    val repo = new RepoEvents
-    val givenEvent1 = Event(when = 10, team1PointsTotal = 0, team2PointsTotal = 3, whoScored = Team2, pointsScored = 3)
-
-    repo.addEvent(givenEvent1)
-    repo.addEvent(givenEvent1)
-    repo.addEvent(givenEvent1)
-
-    assert(Some(List(givenEvent1)) == repo.findAllEvents())
-  }
 }

@@ -14,7 +14,7 @@ class RepoEvents {
   private var cache: ListEvent = List()
 
   def addEvent(newEvent: Event): RepoEvents = {
-    if(cache.contains(newEvent) == false){
+    if(ValidatorEvent.isValid(newEvent)) {
       this.cache = newEvent :: this.cache
     }
 

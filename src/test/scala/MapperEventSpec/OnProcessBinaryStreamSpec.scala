@@ -13,7 +13,7 @@ class OnProcessBinaryStreamSpec extends FunSuite {
   }
 
   test("Edge case"){
-    val result1 = MapperEvent.processBinaryStream("", List(2, 1, 8, 8))
+    val result1 = MapperEvent.processBinaryStream("")
 
     assert(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxx") == result1)
   }
