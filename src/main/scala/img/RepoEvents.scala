@@ -20,7 +20,7 @@ class RepoEvents {
     this.cache
   }
 
-  def findLastEvents(n: Int): List[Event] = {
+  def findLastNEvents(n: Int): List[Event] = {
     this.cache.take(n)
   }
 
