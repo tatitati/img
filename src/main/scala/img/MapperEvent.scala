@@ -5,7 +5,7 @@ import scala.annotation.tailrec
 object MapperEvent {
 
   @tailrec
-  def processBinaryStream(data: String, idxSplits: List[Int], accumulator: List[String] = List()): List[String] = {
+  def processBinaryStream(data: String, idxSplits: List[Int] = List(2, 1, 8, 8), accumulator: List[String] = List()): List[String] = {
     idxSplits match {
       case Nil => accumulator :+ data
       case _ =>
@@ -18,7 +18,7 @@ object MapperEvent {
 
   def fromHex(hex: String): Either[Error, Event] = {
     val binary = Integer.parseInt(hex, 16).toBinaryString
-    val fields = processBinaryStream(binary, List(2, 1, 8, 8))
+    val fields = processBinaryStream(binary)
       .map(Integer.parseInt(_, 2))
 
     fields match {

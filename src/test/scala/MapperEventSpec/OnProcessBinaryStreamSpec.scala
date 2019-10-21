@@ -13,4 +13,17 @@ class OnProcessBinaryStreamSpec extends FunSuite {
     assert(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxxxxxxxxxxxxxxx") == result2)
     assert(List("a", "ba", "ccc", "cccc", "ddddc", "xxxxdddd", "xxxxxxxxxxxxxxxxxxxx") == result3)
   }
+
+  test("by default is using fixed indexes to split the binary stream"){
+    val result1 = MapperEvent.processBinaryStream("xxxxxxxxxxxddddddddccccccccbaa", List(2, 1, 8, 8))
+    val result2 = MapperEvent.processBinaryStream("xxxxxxxxxxxddddddddccccccccbaa")
+
+    assert(result1 == result2)
+  }
+
+  test("Edge case"){
+    val result1 = MapperEvent.processBinaryStream("", List(2, 1, 8, 8))
+
+    assert(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxx") == result1)
+  }
 }
