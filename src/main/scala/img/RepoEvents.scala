@@ -9,19 +9,27 @@ object RepoEvents{
 }
 
 class RepoEvents {
-  private var cache: List[Event] = List()
+  type ListEvent = List[Event]
+
+  private var cache: ListEvent = List()
 
   def addEvent(eventTeam: Event): RepoEvents = {
     this.cache = eventTeam :: this.cache
     this
   }
 
-  def findAllEvents(): List[Event] = {
-    this.cache
+  def findAllEvents(): Option[ListEvent] = {
+    this.cache match {
+      case Nil => None
+      case values => Some(values)
+    }
   }
 
-  def findLastNEvents(n: Int): List[Event] = {
-    this.cache.take(n)
+  def findLastNEvents(n: Int): Option[ListEvent] = {
+    this.cache.take(n) match {
+      case Nil => None
+      case events => Some(events)
+    }
   }
 
   def findLastEvent(): Option[Event] = {

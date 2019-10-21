@@ -13,6 +13,6 @@ class OnAddEventSpec extends FunSuite {
     repo.addEvent(givenEvent1)
     repo.addEvent(givenEvent2)
 
-    assert(List(givenEvent2, givenEvent1) == repo.findAllEvents())
+    assert(Some(List(givenEvent2, givenEvent1)) == repo.findAllEvents())
   }
 }

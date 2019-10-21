@@ -15,6 +15,12 @@ class OnFindLastNSpec extends FunSuite {
     repo.addEvent(givenEvent2)
     repo.addEvent(givenEvent3)
 
-    assert(List(givenEvent3, givenEvent2) == repo.findLastNEvents(2))
+    assert(Some(List(givenEvent3, givenEvent2)) == repo.findLastNEvents(2))
+  }
+
+  test("If no events, Noneis returned") {
+    val repo = new RepoEvents
+
+    assert(None == repo.findLastNEvents(2))
   }
 }
