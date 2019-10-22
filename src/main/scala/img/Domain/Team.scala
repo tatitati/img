@@ -1,4 +1,4 @@
-package img
+package img.Domain
 
 sealed trait Team
 final case object Team1 extends Team

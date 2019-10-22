@@ -1,4 +1,7 @@
-package img
+package img.Infrastructure
+
+import img.Application.ValidatorEvent
+import img.Domain.Event
 
 import scala.util.{Success, Try}
 

@@ -1,7 +1,9 @@
-package img
+package img.Infrastructure
+
+import img.Domain.{Event, Team1, Team2}
+import img.Domain
 
 import scala.annotation.tailrec
-import scala.util.{Success, Try}
 
 object MapperEvent {
 
@@ -23,7 +25,7 @@ object MapperEvent {
 
     fields match {
       case List(pointsScored, whoscored, team2Total, team1Total, when) =>
-        Right(Event(
+        Right(Domain.Event(
           when,
           team1Total,
           team2Total,

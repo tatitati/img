@@ -1,6 +1,8 @@
-package MapperEventSpec
+package img.Infrastructure.MapperEventSpec
 
-import img.{ErrorParsing, Event, MapperEvent, Team1, Team2}
+import img.Domain.{Event, Team1, Team2}
+import img.Infrastructure.MapperEvent
+import img.Domain
 import org.scalatest.FunSuite
 
 class OnFromHexSpec extends FunSuite {
@@ -12,9 +14,9 @@ class OnFromHexSpec extends FunSuite {
     val event5 = MapperEvent.fromHex(0x48332327)
 
     assert(Right(Event(15,2,0,Team1,2)) == event1, "Received on 15 sec")
-    assert(Right(Event(30,2,3,Team2,3)) == event2, "Received after 15sec more")
-    assert(Right(Event(610,25,20,Team1,1)) == event3, "at 10.10")
-    assert(Right(Event(1343,48,52,Team1,2)) == event4, "at 22.23")
-    assert(Right(Event(2310,100,100,Team2,3)) == event5, "38.30")
+    assert(Right(Domain.Event(30,2,3,Team2,3)) == event2, "Received after 15sec more")
+    assert(Right(Domain.Event(610,25,20,Team1,1)) == event3, "at 10.10")
+    assert(Right(Domain.Event(1343,48,52,Team1,2)) == event4, "at 22.23")
+    assert(Right(Domain.Event(2310,100,100,Team2,3)) == event5, "38.30")
   }
 }

@@ -1,6 +1,6 @@
-package MapperEventSpec
+package img.Infrastructure.MapperEventSpec
 
-import img.{Event, MapperEvent}
+import img.Infrastructure.MapperEvent
 import org.scalatest.FunSuite
 
 class OnProcessBinaryStreamSpec extends FunSuite {
@@ -13,8 +13,8 @@ class OnProcessBinaryStreamSpec extends FunSuite {
   }
 
   test("Edge case"){
-    val result1 = MapperEvent.processBinaryStream("")
+    val result1 = MapperEvent.processBinaryStream("ddddddddccccccccbaa")
 
-    assert(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxx") == result1)
+    assert(List("aa", "b", "cccccccc", "dddddddd", "") == result1)
   }
 }

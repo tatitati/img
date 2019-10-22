@@ -1,4 +1,4 @@
-package img
+package img.Domain
 
 case class Event(
   when: Int,

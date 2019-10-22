@@ -1,6 +1,6 @@
-package img
+package img.Application
 
-import scala.util.{Success, Try}
+import img.Domain.Event
 
 object ValidatorEvent {
   def isValid(newEvent: Event, lastEvent: Option[Event]): Boolean = {

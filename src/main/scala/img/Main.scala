@@ -1,5 +1,7 @@
 package img
 
+import img.Infrastructure.{MapperEvent, RepoEvents}
+
 import scala.annotation.tailrec
 
 object Main {
