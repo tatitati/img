@@ -43,11 +43,20 @@ q: quit
 =====================
 
 > 2 
-Event(31,2,6,Team2,3)
-Event(30,2,3,Team2,3)
-Event(15,2,0,Team1,2)
+Event(31,2,6,Team2,3)  // added for: f81037
+Event(30,2,3,Team2,3)  // added for: f0101f
+Event(15,2,0,Team1,2)  // added for: 781002
 
 ```
+
+# Event restrictions:
+
+1. Events cannot be inserted at any moment. Any new event must be after (in time) the last inserted event
+2. None event can be added if the scored point is zero
+3. None team can be set randomly at a total points without receiving these events before (they cannot cheat).
+4. The total scored points of a new event must be updated properly based on the new scores + scores in the last event
+5. When received an event, the total of them team that didn't scored must keep the same amount
+
 
 
 
