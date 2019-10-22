@@ -7,4 +7,3 @@ case class Event(
   whoScored: Team,
   pointsScored: Int
 )
-

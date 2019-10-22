@@ -1,13 +1,13 @@
 package img
 
-import img.Infrastructure.{MapperEvent, RepoEvents}
+import img.Infrastructure.RepositoryEvents
 
 import scala.annotation.tailrec
 
 object Main {
 
   @tailrec
-  def ask(repo: RepoEvents): Unit = {
+  def ask(repo: RepositoryEvents): Unit = {
 
       println("\n=====================\n")
       println("1: Add new event (hex)")
@@ -23,8 +23,8 @@ object Main {
         case 1 =>
           println("Introduce Hexadecimal (example: f0101f): ")
           val hex: Int = scala.io.StdIn.readInt()
-          val event = MapperEvent.fromHex(hex)
-          event.map(repo.addEvent(_))
+//          val event = MapperEvent.fromHex(hex)
+//          event.map(repo.addEvent(_))
           ask(repo)
 
         case 2 =>
@@ -46,7 +46,7 @@ object Main {
   }
 
   def main(args: Array[String]) {
-    val repo = new RepoEvents
+    val repo = new RepositoryEvents
     ask(repo)
   }
 }
