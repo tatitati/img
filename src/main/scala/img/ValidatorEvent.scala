@@ -3,16 +3,14 @@ package img
 import scala.util.{Success, Try}
 
 object ValidatorEvent {
-  def isValid(newEvent: Event, history: List[Event] = List()): Boolean = {
-    lazy val isDuplicated = if (history.contains(newEvent)) false else true
-    lazy val isFromPast = {
-      val result = Try {history.head}
-      result match {
-        case Success(lastEvent) => newEvent.when < lastEvent.when
-        case _ => true
-      }
-    }
+  def isValid(newEvent: Event, lastEvent: Option[Event]): Boolean = {
+    lazy val pointsArePositive = newEvent.pointsScored > 0
 
-    !isDuplicated && !isFromPast
+    lazy val isMostRecent = lastEvent match {
+        case Some(lastEvent) => newEvent.when > lastEvent.when
+        case None => true
+      }
+
+    isMostRecent && pointsArePositive
   }
 }
