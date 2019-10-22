@@ -4,9 +4,14 @@ import img.Domain.{Event, Team1, Team2}
 
 object ValidatorEvent {
   def isValid(newevent: Event, lastEvent: Option[Event]): Boolean = {
+    isEventConsistent(newevent) &&
     isNewEventAfterLastEvent(newevent, lastEvent) &&
     goalsAreMovingForward(newevent, lastEvent) &&
     teamNotScoringRemainTheSame(newevent, lastEvent)
+  }
+
+  def isEventConsistent(event: Event): Boolean = {
+    event.pointsScored < 4 && event.when > 0 && (event.team1PointsTotal > 0 | event.team2PointsTotal > 0)
   }
 
   def isNewEventAfterLastEvent(newevent: Event, lastEvent: Option[Event]): Boolean = {
