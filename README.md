@@ -42,10 +42,11 @@ q: quit
 
 =====================
 
-> 2 
-Event(31,2,6,Team2,3)  // added for: f81037
-Event(30,2,3,Team2,3)  // added for: f0101f
-Event(15,2,0,Team1,2)  // added for: 781002
+> 2
+Event(when=31 team1PointsTotal=2 team2PointsTotal=6 whoScored=Team2 pointsScored=3) // added for: f81037
+Event(when=30 team1PointsTotal=2 team2PointsTotal=3 whoScored=Team2 pointsScored=3) // added for: f0101f
+Event(when=15 team1PointsTotal=2 team2PointsTotal=0 whoScored=Team1 pointsScored=2) // added for: 781002
+
 
 ```
 
