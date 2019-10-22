@@ -20,8 +20,8 @@ object Main {
       choice match{
         case 1 =>
           println("Introduce Hexadecimal (example: f0101f): ")
-          val hex: String = scala.io.StdIn.readLine()
-          val event = MapperEvent.fromHex(hex.trim)
+          val hex: Int = scala.io.StdIn.readInt()
+          val event = MapperEvent.fromHex(hex)
           event.map(repo.addEvent(_))
           ask(repo)
 
@@ -42,7 +42,6 @@ object Main {
         case 5 => println("Done")
       }
   }
-
 
   def main(args: Array[String]) {
     val repo = new RepoEvents

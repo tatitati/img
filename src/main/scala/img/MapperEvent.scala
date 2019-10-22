@@ -17,9 +17,8 @@ object MapperEvent {
     }
   }
 
-  def fromHex(hex: String): Either[Error, Event] = {
-    val binary = Integer.parseInt(hex, 16).toBinaryString
-    val fields = processBinaryStream(binary)
+  def fromHex(hex: Int): Either[Error, Event] = {
+    val fields = processBinaryStream(hex.toBinaryString)
       .map(Integer.parseInt(_, 2))
 
     fields match {
@@ -34,15 +33,6 @@ object MapperEvent {
           },
           pointsScored
         ))
-      case _ => Left(ErrorParsing)
-    }
-  }
-
-  def hexToBin(hex: String): Either[Error, String] = {
-    val result = Try {Integer.parseInt(hex, 16).toBinaryString}
-
-    result match {
-      case Success(value) => Right(value)
       case _ => Left(ErrorParsing)
     }
   }

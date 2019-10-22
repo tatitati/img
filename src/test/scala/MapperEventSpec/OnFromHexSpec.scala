@@ -5,11 +5,11 @@ import org.scalatest.FunSuite
 
 class OnFromHexSpec extends FunSuite {
   test("From the spec I can parse the provided events"){
-    val event1 = MapperEvent.fromHex("781002")
-    val event2 = MapperEvent.fromHex("f0101f")
-    val event3 = MapperEvent.fromHex("1310c8a1")
-    val event4 = MapperEvent.fromHex("29f981a2")
-    val event5 = MapperEvent.fromHex("48332327")
+    val event1 = MapperEvent.fromHex(0x781002)
+    val event2 = MapperEvent.fromHex(0xf0101f)
+    val event3 = MapperEvent.fromHex(0x1310c8a1)
+    val event4 = MapperEvent.fromHex(0x29f981a2)
+    val event5 = MapperEvent.fromHex(0x48332327)
 
     assert(Right(Event(15,2,0,Team1,2)) == event1, "Received on 15 sec")
     assert(Right(Event(30,2,3,Team2,3)) == event2, "Received after 15sec more")
