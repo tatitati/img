@@ -1,6 +1,7 @@
 package img.Infrastructure
 
-import img.Domain.Event
+import img.Domain.{Event, Team}
+
 import scala.util.{Success, Try}
 
 object RepositoryEvents{
@@ -34,6 +35,14 @@ class RepositoryEvents {
     result match {
       case Success(value) => Some(value)
       case _ => None
+    }
+  }
+
+  def findLastEventByTeam(team: Team): Option[Event] = {
+    val events: List[Event] = this.cache.filter(_.whoScored == team)
+     events match {
+      case Nil => None
+      case values => Some(values.head)
     }
   }
 }

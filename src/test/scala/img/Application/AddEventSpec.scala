@@ -12,33 +12,33 @@ class AddEventSpec extends FunSuite {
   val findAll = new FindAllEvents(repo)
 
   test("I can split in a recursive way"){
-    val result1 = addEvent.processBinaryStream("xxxxxxxxxxxddddddddccccccccbaa")
-    val result2 = addEvent.processBinaryStream("xxxxxxxxxxxxxxxxxxxxxxxxddddddddccccccccbaa")
+    val result1 = addEvent.splitBinaryStream("xxxxxxxxxxxddddddddccccccccbaa")
+    val result2 = addEvent.splitBinaryStream("xxxxxxxxxxxxxxxxxxxxxxxxddddddddccccccccbaa")
 
     assert(Right(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxx")) == result1)
     assert(Right(List("aa", "b", "cccccccc", "dddddddd", "xxxxxxxxxxxxxxxxxxxxxxxx")) == result2)
   }
 
   test("Edge case"){
-    val result1 = addEvent.processBinaryStream("aa")
+    val result1 = addEvent.splitBinaryStream("aa")
 
     assert(Left(ErrorParsing) == result1)
   }
 
   test("On time 0 is not a valid instant") {
-    assert(false == addEvent.areValidChunks(List("11", "1", "00000000", "11111111", "000000000000")))
+    assert(false == addEvent.validateBinaryChunks(List("11", "1", "00000000", "11111111", "000000000000")))
   }
 
   test("Zero points scored event are not valid") {
-    assert(false == addEvent.areValidChunks(List("00", "1", "00000000", "11111111", "000000000001")))
+    assert(false == addEvent.validateBinaryChunks(List("00", "1", "00000000", "11111111", "000000000001")))
   }
 
   test("I cannot have an event triggered by a goal, but not being updated anything for any team"){
-    assert(false == addEvent.areValidChunks(List("01", "1", "00000000", "00000000", "000000000001")))
+    assert(false == addEvent.validateBinaryChunks(List("01", "1", "00000000", "00000000", "000000000001")))
   }
 
   test("I can define a valid value") {
-    assert(true == addEvent.areValidChunks(List("01", "1", "00000000", "11111111", "000000000001")))
+    assert(true == addEvent.validateBinaryChunks(List("01", "1", "00000000", "11111111", "000000000001")))
   }
 
   test("I cannot add wrong streams") {

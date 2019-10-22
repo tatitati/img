@@ -9,8 +9,8 @@ class AddEvent(repositoryEvents: RepositoryEvents) {
   type ErrorOrEvent = Either[ErrorParsing.type, Event]
 
   def run(hex: Int): ErrorOrEvent = {
-    processBinaryStream(hex.toBinaryString).flatMap{binaryChunks =>
-      areValidChunks(binaryChunks) match {
+    splitBinaryStream(hex.toBinaryString).flatMap{ binaryChunks =>
+      validateBinaryChunks(binaryChunks) match {
         case true => val List(pointsScored, whoscored, team2Total, team1Total, when) = binaryChunks.map(Integer.parseInt(_, 2))
           val newEvent = Event(when, team1Total, team2Total, whoscored match { case 0 => Team1 case 1 => Team2}, pointsScored)
           repositoryEvents.addEvent(newEvent)
@@ -20,13 +20,13 @@ class AddEvent(repositoryEvents: RepositoryEvents) {
     }
   }
 
-  def areValidChunks(values: List[String]): Boolean = {
+  def validateBinaryChunks(values: List[String]): Boolean = {
     val List(pointsScored, whoscored, team2Total, team1Total, when) = values.map(Integer.parseInt(_, 2))
     pointsScored < 4 && pointsScored > 0 && when > 0 && whoscored < 2 && (team2Total > 0 || team1Total > 0)
   }
 
   @tailrec
-  final def processBinaryStream(data: String, idxSplits: List[Int] = List(2, 1, 8, 8), accumulator: List[String] = List()): Either[ErrorParsing.type, List[String]] = {
+  final def splitBinaryStream(data: String, idxSplits: List[Int] = List(2, 1, 8, 8), accumulator: List[String] = List()): Either[ErrorParsing.type, List[String]] = {
     idxSplits match {
       case Nil =>
         val chunks = (accumulator :+ data)
@@ -38,7 +38,7 @@ class AddEvent(repositoryEvents: RepositoryEvents) {
         val nextSplit = data.length - idxSplits.head
         val(binaryhead: String, binarytail: String) = data.splitAt(nextSplit)
 
-        processBinaryStream(binaryhead, idxSplits.tail, accumulator :+ binarytail)
+        splitBinaryStream(binaryhead, idxSplits.tail, accumulator :+ binarytail)
     }
   }
 }
