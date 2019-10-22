@@ -18,8 +18,8 @@ object ValidatorEvent {
 
   def goalsAreMovingForward(newevent: Event, lastEvent: Option[Event]): Boolean = {
     lastEvent match {
-      case Some(last) if newevent.whoScored == Team1 => newevent.team1PointsTotal == last.team1PointsTotal && newevent.team1PointsTotal == last.team1PointsTotal + newevent.pointsScored
-      case Some(last) if newevent.whoScored == Team2 => newevent.team2PointsTotal > last.team2PointsTotal && newevent.team2PointsTotal == last.team2PointsTotal + newevent.pointsScored
+      case Some(last) if newevent.whoScored == Team1 => newevent.team1PointsTotal == last.team1PointsTotal + newevent.pointsScored
+      case Some(last) if newevent.whoScored == Team2 => newevent.team2PointsTotal == last.team2PointsTotal + newevent.pointsScored
       case None if newevent.whoScored == Team1 => newevent.team1PointsTotal == newevent.pointsScored && newevent.team1PointsTotal == newevent.pointsScored
       case None if newevent.whoScored == Team2 => newevent.team2PointsTotal == newevent.pointsScored && newevent.team2PointsTotal == newevent.pointsScored
     }

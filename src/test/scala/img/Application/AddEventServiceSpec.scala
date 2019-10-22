@@ -50,11 +50,11 @@ class AddEventServiceSpec extends FunSuite {
   }
 
   test("I cannot add invalid events") {
-    val result = addEvent.run(0x781002)
-    assert(Right(Event(15,2,0,Team1,2)) == result)
+    val result = addEvent.run(0x781012)
+    assert(Left(ErrorInvalidEvent) == result)
 
-    assert("11110000000000000000010" == 0x781002.toBinaryString)
-    assert(List(Event(15,2,0,Team1,2)) == findAll.run())
+    assert("11110000001000000000010" == 0x781002.toBinaryString)
+    assert(List() == findAll.run())
   }
 
   test("I can add correct events") {
