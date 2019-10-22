@@ -26,7 +26,7 @@ object Main {
 
       choice match{
         case 1 =>
-          println("Introduce Hexadecimal (example: f0101f): ")
+          println("Introduce Hexadecimal (examples: 781002 f0101f 1310c8a1 29f981a2 48332327): ")
           val input: String = scala.io.StdIn.readLine()
           val hex = Integer.parseInt(input, 16)
           val service = new AddEventService(repo)
