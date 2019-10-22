@@ -37,12 +37,4 @@ class RepositoryEvents {
       case _ => None
     }
   }
-
-  def findLastEventByTeam(team: Team): Option[Event] = {
-    val events: List[Event] = this.cache.filter(_.whoScored == team)
-     events match {
-      case Nil => None
-      case values => Some(values.head)
-    }
-  }
 }

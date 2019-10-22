@@ -22,7 +22,7 @@ class AddEventSpec extends FunSuite {
   test("Edge case"){
     val result1 = addEvent.splitBinaryStream("aa")
 
-    assert(Left(ErrorParsing) == result1)
+    assert(Left(ErrorInvalidBinaryStream) == result1)
   }
 
   test("On time 0 is not a valid instant") {
@@ -45,7 +45,15 @@ class AddEventSpec extends FunSuite {
     val result = addEvent.run(0x001002)
 
     assert("1000000000010" == 0x001002.toBinaryString)
-    assert(Left(ErrorParsing) == result)
+    assert(Left(ErrorInvalidBinaryStream) == result)
+    assert(List() == findAll.run())
+  }
+
+  test("I cannot add invalid events") {
+    val result = addEvent.run(0x001002)
+
+    assert("1000000000010" == 0x001002.toBinaryString)
+    assert(Left(ErrorInvalidBinaryStream) == result)
     assert(List() == findAll.run())
   }
 
