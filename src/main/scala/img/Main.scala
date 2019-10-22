@@ -1,10 +1,10 @@
 package img
 
-import img.Application.{AddEventService, ErrorInvalidBinaryStream, ErrorInvalidEvent, FindAllEventsService, FindLastEventService, FindLastNEventsService, ValidatorEvent}
+import img.Application.{AddEventService, FindAllEventsService, FindLastEventService, FindLastNEventsService}
 import img.Domain.{Event, Team1, Team2}
 import img.Infrastructure.RepositoryEvents
-
 import scala.annotation.tailrec
+import scala.util.{Failure, Success, Try}
 
 object Main {
 
@@ -22,35 +22,50 @@ object Main {
       println("5: quit")
       println("\n=====================\n")
 
-      val choice = scala.io.StdIn.readInt()
+      val choice = scala.io.StdIn.readLine().trim
 
       choice match{
-        case 1 =>
-          println("Introduce Hexadecimal (examples: 781002 f0101f 1310c8a1 29f981a2 48332327): ")
-          val input: String = scala.io.StdIn.readLine()
-          val hex = Integer.parseInt(input, 16)
-          val service = new AddEventService(repo)
-          parseInput(hex).map(service.run(_))
+        case "1" =>
+          println("Introduce Hexadecimal (examples: 781002  f0101f  f81037  1982032): ")
+          val input: String = scala.io.StdIn.readLine().trim
+          val hex = Try{Integer.parseInt(input, 16)}
+          hex match {
+            case Success(hexValue) =>
+              val service = new AddEventService(repo)
+              parseInput(hexValue).map(service.run(_))
+            case Failure(_) =>
+              println("Invalid Hex")
+          }
+
           displayMenu()
 
-        case 2 =>
+        case "2" =>
           val service = new FindAllEventsService(repo)
           service.run().map(println(_))
           displayMenu()
 
-        case 3 =>
+        case "3" =>
           val service = new FindLastEventService(repo)
           service.run().map(println(_))
           displayMenu()
 
-        case 4 =>
+        case "4" =>
           println("Introduce n: ")
-          val n=scala.io.StdIn.readInt()
-          val service = new FindLastNEventsService(repo)
-          service.run(n).map(println(_))
+          val n = Try{scala.io.StdIn.readInt()}
+          n match {
+            case Success(num) =>
+              val service = new FindLastNEventsService(repo)
+              service.run(num).map(println(_))
+            case Failure(_) =>
+              println("Invalid number")
+          }
+
           displayMenu()
 
-        case 5 => println("Done")
+        case "q" => println("Done")
+        case _ =>
+          println("Invalid option")
+          displayMenu()
       }
   }
 
