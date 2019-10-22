@@ -60,5 +60,8 @@ Event(when=15 team1PointsTotal=2 team2PointsTotal=0 whoScored=Team1 pointsScored
 6. None event can be added for "zero" seconds
 
 
-
+# Development Notes:
+- Duration of 2 days
+- Memory cache used to store new events
+- Is not made in a functional way as seems (from the spec) that is not required any additional library (like Cats, ScalaZ, ..)
 
