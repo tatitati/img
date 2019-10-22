@@ -14,19 +14,19 @@ object Main {
   @tailrec
   def displayMenu(): Unit = {
 
-      println("\n=====================\n")
+      println("\n======== MENU =======\n")
       println("1: Add new event (hex)")
       println("2: Find all events")
       println("3: Find last event")
       println("4: Find last N event")
-      println("5: quit")
+      println("q: quit")
       println("\n=====================\n")
 
       val choice = scala.io.StdIn.readLine().trim
 
       choice match{
         case "1" =>
-          println("Introduce Hexadecimal (examples: 781002  f0101f  f81037  1982032): ")
+          println("Q: Introduce Hexadecimal (examples: 781002  f0101f  f81037  1982032): ")
           val input: String = scala.io.StdIn.readLine().trim
           val hex = Try{Integer.parseInt(input, 16)}
           hex match {
@@ -50,7 +50,7 @@ object Main {
           displayMenu()
 
         case "4" =>
-          println("Introduce n: ")
+          println("Q: Introduce n: ")
           val n = Try{scala.io.StdIn.readInt()}
           n match {
             case Success(num) =>
