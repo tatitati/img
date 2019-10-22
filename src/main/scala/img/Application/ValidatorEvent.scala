@@ -6,7 +6,7 @@ object ValidatorEvent {
   def isValid(newevent: Event, lastEvent: Option[Event]): Boolean = {
     isNewEventAfterLastEvent(newevent, lastEvent) &&
     goalsAreMovingForward(newevent, lastEvent) &&
-    onlyAdvanceTheProperTeam(newevent, lastEvent)
+    teamNotScoringRemainTheSame(newevent, lastEvent)
   }
 
   def isNewEventAfterLastEvent(newevent: Event, lastEvent: Option[Event]): Boolean = {
@@ -18,14 +18,14 @@ object ValidatorEvent {
 
   def goalsAreMovingForward(newevent: Event, lastEvent: Option[Event]): Boolean = {
     lastEvent match {
-      case Some(last) if newevent.whoScored == Team1 => newevent.team1PointsTotal > last.team1PointsTotal
-      case Some(last) if newevent.whoScored == Team2 => newevent.team2PointsTotal > last.team2PointsTotal
-      case None if newevent.whoScored == Team1 => newevent.team1PointsTotal == newevent.pointsScored
-      case None if newevent.whoScored == Team2 => newevent.team2PointsTotal == newevent.pointsScored
+      case Some(last) if newevent.whoScored == Team1 => newevent.team1PointsTotal == last.team1PointsTotal && newevent.team1PointsTotal == last.team1PointsTotal + newevent.pointsScored
+      case Some(last) if newevent.whoScored == Team2 => newevent.team2PointsTotal > last.team2PointsTotal && newevent.team2PointsTotal == last.team2PointsTotal + newevent.pointsScored
+      case None if newevent.whoScored == Team1 => newevent.team1PointsTotal == newevent.pointsScored && newevent.team1PointsTotal == newevent.pointsScored
+      case None if newevent.whoScored == Team2 => newevent.team2PointsTotal == newevent.pointsScored && newevent.team2PointsTotal == newevent.pointsScored
     }
   }
 
-  def onlyAdvanceTheProperTeam(newevent: Event, lastEvent: Option[Event]): Boolean = {
+  def teamNotScoringRemainTheSame(newevent: Event, lastEvent: Option[Event]): Boolean = {
     lastEvent match {
       case Some(last) if newevent.whoScored == Team1 => newevent.team2PointsTotal == last.team2PointsTotal
       case Some(last) if newevent.whoScored == Team2 => newevent.team1PointsTotal == last.team1PointsTotal

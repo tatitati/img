@@ -4,7 +4,7 @@ import img.Domain.{Event, Team1, Team2}
 import img.Infrastructure.RepositoryEvents
 import scala.annotation.tailrec
 
-class AddEvent(repositoryEvents: RepositoryEvents) {
+class AddEventService(repositoryEvents: RepositoryEvents) {
 
   type ErrorOrEvent = Either[Error, Event]
 
