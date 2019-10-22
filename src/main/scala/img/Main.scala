@@ -1,6 +1,6 @@
 package img
 
-import img.Application.{ErrorInvalidBinaryStream, ErrorInvalidEvent, ValidatorEvent}
+import img.Application.{AddEventService, ErrorInvalidBinaryStream, ErrorInvalidEvent, FindAllEventsService, FindLastEventService, FindLastNEventsService, ValidatorEvent}
 import img.Domain.{Event, Team1, Team2}
 import img.Infrastructure.RepositoryEvents
 
@@ -9,9 +9,10 @@ import scala.annotation.tailrec
 object Main {
 
   type ErrorstreamOrEvent = Either[ErrorInvalidBinaryStream.type, Event]
+  val repo = new RepositoryEvents
 
   @tailrec
-  def displayMenu(repo: RepositoryEvents): Unit = {
+  def displayMenu(): Unit = {
 
       println("\n=====================\n")
       println("1: Add new event (hex)")
@@ -26,24 +27,28 @@ object Main {
       choice match{
         case 1 =>
           println("Introduce Hexadecimal (example: f0101f): ")
-          val hex: Int = scala.io.StdIn.readInt()
-//          val event = MapperEvent.fromHex(hex)
-//          event.map(repo.addEvent(_))
-          displayMenu(repo)
+          val input: String = scala.io.StdIn.readLine()
+          val hex = Integer.parseInt(input, 16)
+          val service = new AddEventService(repo)
+          parseInput(hex).map(service.run(_))
+          displayMenu()
 
         case 2 =>
-          repo.findAllEvents().map(println(_))
-          displayMenu(repo)
+          val service = new FindAllEventsService(repo)
+          service.run().map(println(_))
+          displayMenu()
 
         case 3 =>
-          repo.findLastEvent().map(println(_))
-          displayMenu(repo)
+          val service = new FindLastEventService(repo)
+          service.run().map(println(_))
+          displayMenu()
 
         case 4 =>
           println("Introduce n: ")
           val n=scala.io.StdIn.readInt()
-          repo.findLastNEvents(n).map(println(_))
-          displayMenu(repo)
+          val service = new FindLastNEventsService(repo)
+          service.run(n).map(println(_))
+          displayMenu()
 
         case 5 => println("Done")
       }
@@ -75,7 +80,6 @@ object Main {
   }
 
   def main(args: Array[String]) {
-    val repo = new RepositoryEvents
-    displayMenu(repo)
+    displayMenu()
   }
 }
