@@ -56,6 +56,7 @@ Event(15,2,0,Team1,2)  // added for: 781002
 3. None team can be set randomly at a total points without receiving these events before (they cannot cheat).
 4. The total scored points of a new event must be updated properly based on the new scores + scores in the last event
 5. When received an event, the total of them team that didn't scored must keep the same amount
+6. None event can be added for "zero" seconds
 
 
 
