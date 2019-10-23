@@ -4,18 +4,18 @@ import img.Domain.{Event, Team1, Team2}
 import img.Infrastructure.RepositoryEvents
 import org.scalatest.{BeforeAndAfterEach, FunSuite}
 
-class AddEventServiceSpec extends FunSuite with BeforeAndAfterEach {
+class ServiceAddEventSpec extends FunSuite with BeforeAndAfterEach {
 
   var repo = new RepositoryEvents
-  var addEvent = new AddEventService(repo)
-  var findAll = new FindAllEventsService(repo)
+  var addEvent = new ServiceAddEvent(repo)
+  var findAll = new ServiceFindAllEvents(repo)
 
   override def beforeEach(): Unit ={
     // I'm using an in-memory cache, so I have to reset it creating a new inmemory repository
     // usually this is not needed, but for this case make the job
     repo = new RepositoryEvents
-    addEvent = new AddEventService(repo)
-    findAll = new FindAllEventsService(repo)
+    addEvent = new ServiceAddEvent(repo)
+    findAll = new ServiceFindAllEvents(repo)
   }
 
   test("I can only add correct events") {

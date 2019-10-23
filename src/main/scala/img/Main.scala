@@ -1,6 +1,6 @@
 package img
 
-import img.Application.{AddEventService, FindAllEventsService, FindLastEventService, FindLastNEventsService}
+import img.Application.{ServiceAddEvent, ServiceFindAllEvents, ServiceFindLastEvent, ServiceFindLastNEvents}
 import img.Domain.{Event, Team1, Team2}
 import img.Infrastructure.RepositoryEvents
 import scala.annotation.tailrec
@@ -31,7 +31,7 @@ object Main {
           val hex = Try{Integer.parseInt(input, 16)}
           hex match {
             case Success(hexValue) =>
-              val service = new AddEventService(repo)
+              val service = new ServiceAddEvent(repo)
               parseInput(hexValue).map(service.run(_))
             case Failure(_) =>
               println("Invalid Hex")
@@ -40,12 +40,12 @@ object Main {
           displayMenu()
 
         case "2" =>
-          val service = new FindAllEventsService(repo)
+          val service = new ServiceFindAllEvents(repo)
           service.run().map(println(_))
           displayMenu()
 
         case "3" =>
-          val service = new FindLastEventService(repo)
+          val service = new ServiceFindLastEvent(repo)
           service.run().map(println(_))
           displayMenu()
 
@@ -54,7 +54,7 @@ object Main {
           val n = Try{scala.io.StdIn.readInt()}
           n match {
             case Success(num) =>
-              val service = new FindLastNEventsService(repo)
+              val service = new ServiceFindLastNEvents(repo)
               service.run(num).map(println(_))
             case Failure(_) =>
               println("Invalid number")
