@@ -1,13 +1,10 @@
 package img.Infrastructure
 
-import img.Domain.{Event, Team}
-
+import img.Domain.Event
 import scala.util.{Success, Try}
 
 object RepositoryEvents{
-  def apply(): RepositoryEvents = {
-    new RepositoryEvents()
-  }
+  def apply(): RepositoryEvents = new RepositoryEvents()
 }
 
 class RepositoryEvents {
@@ -15,18 +12,12 @@ class RepositoryEvents {
 
   private var cache: ListEvent = List()
 
+  def findAllEvents(): ListEvent = this.cache
+  def findLastNEvents(n: Int): ListEvent = this.cache.take(n)
+
   def addEvent(newEvent: Event): RepositoryEvents = {
     this.cache = newEvent :: this.cache
-
     this
-  }
-
-  def findAllEvents(): ListEvent = {
-    this.cache
-  }
-
-  def findLastNEvents(n: Int): ListEvent = {
-    this.cache.take(n)
   }
 
   def findLastEvent(): Option[Event] = {
