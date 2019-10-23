@@ -1,5 +1,5 @@
 
-=> Finished at: 23-OCT 19:45
+Code finished at: 23-OCT 19:45 (Wednesday)
 
 
 # Run tests
