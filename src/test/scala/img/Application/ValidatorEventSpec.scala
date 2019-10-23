@@ -4,7 +4,7 @@ import img.Domain.{Event, Team1}
 import org.scalatest.FunSuite
 
 class ValidatorEventSpec extends FunSuite {
-  test("is valid event") {
+  test("I can define what is a valid event") {
     val givenLastEvent = Some(Event(when = 20, 2, 0, Team1, 1))
     val givenNewEvent = Event(when = 30, 3, 0, Team1, 1)
 

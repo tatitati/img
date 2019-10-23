@@ -11,8 +11,7 @@ class ServiceAddEventSpec extends FunSuite with BeforeAndAfterEach {
   var findAll = new ServiceFindAllEvents(repo)
 
   override def beforeEach(): Unit ={
-    // I'm using an in-memory cache, so I have to reset it creating a new inmemory repository
-    // usually this is not needed, but for this case make the job
+    // Reset memory cache
     repo = new RepositoryEvents
     addEvent = new ServiceAddEvent(repo)
     findAll = new ServiceFindAllEvents(repo)

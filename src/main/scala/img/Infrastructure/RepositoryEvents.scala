@@ -9,7 +9,6 @@ object RepositoryEvents{
 
 class RepositoryEvents {
   type ListEvent = List[Event]
-
   private var cache: ListEvent = List()
 
   def findAllEvents(): ListEvent = this.cache

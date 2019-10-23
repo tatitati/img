@@ -1,13 +1,14 @@
 package img
 
 import img.Application.{ServiceAddEvent, ServiceFindAllEvents, ServiceFindLastEvent, ServiceFindLastNEvents}
-import img.Domain.{Event, Team1, Team2}
+import img.Domain.Event
 import img.Infrastructure.RepositoryEvents
+import img.ui.{ErrorInvalidBinaryStream, ParserInput}
+
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
 object Main {
-
   type ErrorstreamOrEvent = Either[ErrorInvalidBinaryStream.type, Event]
   val repo = new RepositoryEvents
 
@@ -28,15 +29,8 @@ object Main {
         case "1" =>
           println("Q: Introduce Hexadecimal (examples: 781002  f0101f  f81037  1982032): ")
           val input: String = scala.io.StdIn.readLine().trim
-          val hex = Try{Integer.parseInt(input, 16)}
-          hex match {
-            case Success(hexValue) =>
-              val service = new ServiceAddEvent(repo)
-              parseInput(hexValue).map(service.run(_))
-            case Failure(_) =>
-              println("Invalid Hex")
-          }
-
+          val service = new ServiceAddEvent(repo)
+          ParserInput.parse(input).map(service.run(_))
           displayMenu()
 
         case "2" =>
@@ -56,8 +50,7 @@ object Main {
             case Success(num) =>
               val service = new ServiceFindLastNEvents(repo)
               service.run(num).map(println(_))
-            case Failure(_) =>
-              println("Invalid number")
+            case Failure(_) => println("Invalid number")
           }
 
           displayMenu()
@@ -69,32 +62,5 @@ object Main {
       }
   }
 
-  def parseInput(hex: Int): Either[ErrorInvalidBinaryStream.type, Event] = {
-    splitBinaryStream(hex.toBinaryString) match {
-      case Right(chunks) =>
-        val List(pointsScored, whoscored, team2Total, team1Total, when) = chunks.map {Integer.parseInt(_, 2)}
-        Right(Event(when, team1Total, team2Total, if(whoscored == 0) Team1 else Team2, pointsScored))
-      case Left(error) => Left(error)
-    }
-  }
-
-  @tailrec
-  final def splitBinaryStream(data: String, idxSplits: List[Int] = List(2, 1, 8, 8), accumulator: List[String] = List()): Either[ErrorInvalidBinaryStream.type, List[String]] = {
-    idxSplits match {
-      case Nil =>
-        val chunks = (accumulator :+ data)
-        chunks.filter(_.isEmpty).isEmpty match {
-          case true => Right(chunks)
-          case false =>Left(ErrorInvalidBinaryStream)
-        }
-      case _ =>
-        val nextSplit = data.length - idxSplits.head
-        val(binaryhead: String, binarytail: String) = data.splitAt(nextSplit)
-        splitBinaryStream(binaryhead, idxSplits.tail, accumulator :+ binarytail)
-    }
-  }
-
-  def main(args: Array[String]) {
-    displayMenu()
-  }
+  def main(args: Array[String]) = displayMenu()
 }

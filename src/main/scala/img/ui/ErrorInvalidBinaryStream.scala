@@ -1,3 +1,3 @@
-package img
+package img.ui
 
 final case object ErrorInvalidBinaryStream

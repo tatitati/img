@@ -4,7 +4,6 @@ import img.Domain.Event
 import img.Infrastructure.RepositoryEvents
 
 class ServiceAddEvent(repositoryEvents: RepositoryEvents) {
-
   type ErrorOrEvent = Either[ErrorInvalidEvent.type, Event]
 
   def run(newEvent: Event): ErrorOrEvent = {
