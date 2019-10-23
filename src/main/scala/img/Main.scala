@@ -11,6 +11,10 @@ import scala.util.{Failure, Success, Try}
 object Main {
   type ErrorstreamOrEvent = Either[ErrorInvalidInput.type, Event]
   val repo = new RepositoryEvents
+  val serviceAdd = new ServiceAddEvent(repo)
+  val serviceFindAll = new ServiceFindAllEvents(repo)
+  val serviceFindLast = new ServiceFindLastEvent(repo)
+  val serviceFindLastN = new ServiceFindLastNEvents(repo)
 
   @tailrec
   def displayMenu(): Unit = {
@@ -29,27 +33,21 @@ object Main {
         case "1" =>
           println("Q: Introduce Hexadecimal (examples: 781002  f0101f  f81037  1982032): ")
           val input: String = scala.io.StdIn.readLine().trim
-          val service = new ServiceAddEvent(repo)
-          ParserInput.parse(input).map(service.run(_))
+          ParserInput.parse(input).map(serviceAdd.run(_))
           displayMenu()
 
         case "2" =>
-          val service = new ServiceFindAllEvents(repo)
-          service.run().map(println(_))
+          serviceFindAll.run().map(println(_))
           displayMenu()
-
         case "3" =>
-          val service = new ServiceFindLastEvent(repo)
-          service.run().map(println(_))
+          serviceFindLast.run().map(println(_))
           displayMenu()
 
         case "4" =>
           println("Q: Introduce n: ")
           val n = Try{scala.io.StdIn.readInt()}
           n match {
-            case Success(num) =>
-              val service = new ServiceFindLastNEvents(repo)
-              service.run(num).map(println(_))
+            case Success(num) => serviceFindLastN.run(num).map(println(_))
             case Failure(_) => println("Invalid number")
           }
 
