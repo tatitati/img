@@ -3,13 +3,13 @@ package img
 import img.Application.{ServiceAddEvent, ServiceFindAllEvents, ServiceFindLastEvent, ServiceFindLastNEvents}
 import img.Domain.Event
 import img.Infrastructure.RepositoryEvents
-import img.ui.{ErrorInvalidBinaryStream, ParserInput}
+import img.ui.{ErrorInvalidInput, ParserInput}
 
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
 object Main {
-  type ErrorstreamOrEvent = Either[ErrorInvalidBinaryStream.type, Event]
+  type ErrorstreamOrEvent = Either[ErrorInvalidInput.type, Event]
   val repo = new RepositoryEvents
 
   @tailrec

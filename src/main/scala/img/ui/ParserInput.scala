@@ -24,10 +24,10 @@ object ParserInput {
 
             Right(Event(when, team1, team2, if(who == 0) Team1 else Team2, scores))
 
-          case false => Left(ErrorInvalidBinaryStream)
+          case false => Left(ErrorInvalidInput)
         }
       }
-      case _ => Left(ErrorInvalidBinaryStream)
+      case _ => Left(ErrorInvalidInput)
     }
   }
 }

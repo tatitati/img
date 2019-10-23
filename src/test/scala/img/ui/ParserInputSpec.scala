@@ -1,7 +1,6 @@
 package img.ui
 
 import img.Domain.{Event, Team1, Team2}
-import img.Main
 import org.scalatest.FunSuite
 
 class ParserInputSpec extends FunSuite {
@@ -10,7 +9,7 @@ class ParserInputSpec extends FunSuite {
   }
 
   test("Invalid hexadecimals cannot be parsed"){
-    assert(Left(ErrorInvalidBinaryStream) == ParserInput.parse("7B"))
+    assert(Left(ErrorInvalidInput) == ParserInput.parse("7B"))
   }
 
   test("test specifics hex provided in the documentation"){
