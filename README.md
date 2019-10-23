@@ -56,9 +56,12 @@ Event(when=15 team1PointsTotal=2 team2PointsTotal=0 whoScored=Team1 pointsScored
 2. None event can be added if the scored point is zero
 3. None team can be set randomly at a total points without receiving these events before (they cannot cheat).
 4. The total scored points of a new event must be updated properly based on the new scores + scores in the last event
-5. When received an event, the total of them team that didn't scored must keep the same amount
+5. When received an event, the total of the team that didn't scored must keep the same amount
 6. None event can be added for "zero" seconds
 
 
-
+# Development Notes:
+- Duration of 2 days
+- Memory cache used to store new events
+- Is not made in a functional way as seems (from the spec) that is not required any additional library (like Cats, ScalaZ, ..)
 
