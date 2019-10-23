@@ -5,8 +5,8 @@ import img.Main.ErrorstreamOrEvent
 import scala.util.{Success, Try}
 
 object ParserInput {
-  final def parse(hex: String): ErrorstreamOrEvent = {
-    val number = Try{Integer.parseInt(hex, 16)}
+  final def parse(input: String): ErrorstreamOrEvent = {
+    val number = Try{Integer.parseInt(input, 16)}
     number match {
       case Success(value) => {
         val binary = value.toBinaryString

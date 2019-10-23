@@ -4,7 +4,6 @@ import img.Application.{ServiceAddEvent, ServiceFindAllEvents, ServiceFindLastEv
 import img.Domain.Event
 import img.Infrastructure.RepositoryEvents
 import img.ui.{ErrorInvalidInput, ParserInput}
-
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
