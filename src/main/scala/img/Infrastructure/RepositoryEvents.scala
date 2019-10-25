@@ -19,11 +19,8 @@ class RepositoryEvents {
     this
   }
 
-  def findLastEvent(): Option[Event] = Option(checkExistHead()).flatMap{x =>convert(x)}
-  def checkExistHead(): Try[Event] = Try{this.cache.head}
-
-  def convert(result: Try[Event]): Option[Event] = result match {
-    case Success(value) => Some(value)
+  def findLastEvent(): Option[Event] = this.cache match {
+    case List(head, _*) => Some(head)
     case _ => None
   }
 }
