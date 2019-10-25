@@ -4,8 +4,5 @@ import img.Domain.Event
 import img.Infrastructure.RepositoryEvents
 
 class ServiceFindLastEvent(repositoryEvent: RepositoryEvents) {
-
-  def run(): Option[Event] = {
-    repositoryEvent.findLastEvent()
-  }
+  def run(): Option[Event] = repositoryEvent.findLastEvent()
 }
