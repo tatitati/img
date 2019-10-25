@@ -13,11 +13,7 @@ class RepositoryEvents {
 
   def findAllEvents(): ListEvent = this.cache
   def findLastNEvents(n: Int): ListEvent = this.cache.take(n)
-
-  def addEvent(newEvent: Event): RepositoryEvents = {
-    this.cache = newEvent :: this.cache
-    this
-  }
+  def addEvent(newEvent: Event): Unit = this.cache = newEvent :: this.cache
 
   def findLastEvent(): Option[Event] = this.cache match {
     case List(head, _*) => Some(head)
