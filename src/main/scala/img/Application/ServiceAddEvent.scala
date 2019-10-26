@@ -8,9 +8,10 @@ class ServiceAddEvent(repositoryEvents: RepositoryEvents) {
 
   def run(newEvent: Event): ErrorOrEvent = {
     ValidatorEvent.isValid(newEvent, repositoryEvents.findLastEvent()) match {
-      case true =>
-        repositoryEvents.addEvent(newEvent)
-        Right(newEvent)
+      case true => Right{
+          repositoryEvents.addEvent(newEvent)
+          newEvent
+      }
       case false => Left(ErrorInvalidEvent)
     }
   }

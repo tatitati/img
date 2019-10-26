@@ -6,21 +6,20 @@ import scala.util.{Success, Try}
 
 object ParserInput {
   final def parse(input: String): ErrorstreamOrEvent = {
-    val number = Try{Integer.parseInt(input, 16)}
-    number match {
+    Try{Integer.parseInt(input, 16)} match {
       case Success(value) => {
         val binary = value.toBinaryString
+        val length = binary.length
 
-        binary.length > 20 match {
+        length > 20 match {
           case true =>
-            val inv = binary.reverse
-            val List(scores, who, team2, team1, when) = List(
-              inv.slice(0, 2),
-              inv.slice(2, 3),
-              inv.slice(3, 11),
-              inv.slice(11, 19),
-              inv.slice(19, binary.length)
-            ).map(_.reverse).map(Integer.parseInt(_, 2))
+            val List(when, team1, team2, who, scores) = List(
+              binary.slice(0, length-19),
+              binary.slice(length-19, length-11),
+              binary.slice(length-11, length-3),
+              binary.slice(length-3, length-2),
+              binary.slice(length-2, length),
+            ).map(Integer.parseInt(_, 2))
 
             Right(Event(when, team1, team2, if(who == 0) Team1 else Team2, scores))
 
