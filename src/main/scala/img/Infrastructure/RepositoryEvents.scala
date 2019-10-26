@@ -1,7 +1,6 @@
 package img.Infrastructure
 
 import img.Domain.Event
-import scala.util.{Success, Try}
 
 object RepositoryEvents{
   def apply(): RepositoryEvents = new RepositoryEvents()
