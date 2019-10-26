@@ -11,7 +11,7 @@ object ParserInput {
         val binary = value.toBinaryString
         val length = binary.length
 
-        length > 20 match {
+        length > 19 match {
           case true =>
             val List(when, team1, team2, who, scores) = List(
               binary.slice(0, length-19),
